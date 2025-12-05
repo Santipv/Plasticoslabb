@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diseñador de Productos - Plásticos La Doble B</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- ENCABEZADO Y NAVEGACIÓN -->
+    <header class="main-header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <h1>La Doble B</h1>
+                    <p class="tagline">Plásticos y Desechables</p>
+                </div>
+                <nav class="main-nav">
+                    <ul>
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="productos.html">Productos</a></li>
+                        <li><a href="disenador.html" class="active">Diseñador</a></li>
+                        <li><a href="pedidos.html">Mis Pedidos</a></li>
+                        <li><a href="login.html">Iniciar Sesión</a></li>
+                        <li><a href="registro.html" class="btn-register">Registrarse</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main>
+        <section class="about-section">
+            <div class="container">
+                <h2 class="section-title">Diseñador de Productos Personalizados</h2>
+                <p style="text-align: center; max-width: 800px; margin: 0 auto 2rem; color: var(--text-light); font-size: 1.1rem;">
+                    Crea tu producto ideal con medidas personalizadas. Visualiza tu diseño en tiempo real.
+                </p>
+
+                <!-- SELECTOR DE TIPO DE PRODUCTO -->
+                <div style="text-align: center; margin-bottom: 2rem;">
+                    <label style="font-weight: 600; color: var(--primary-color); margin-right: 1rem; font-size: 1.1rem;">
+                        Tipo de Producto:
+                    </label>
+                    <select id="tipoProducto" 
+                            style="padding: 0.75rem 1.5rem; border: 2px solid var(--primary-color); border-radius: 5px; font-size: 1rem; cursor: pointer; font-weight: 600;">
+                        <option value="bolsa">Bolsa Plástica</option>
+                        <option value="capucho">Capuchón / Funda</option>
+                    </select>
+                </div>
+
+                <!-- CONTENEDOR DEL DISEÑADOR -->
+                <div class="designer-container">
+                    <!-- FORMULARIO DE DISEÑO -->
+                    <div class="designer-form">
+                        <h3 style="color: var(--primary-color); margin-bottom: 1.5rem;">
+                            Especificaciones del Producto
+                        </h3>
+
+                        <!-- FORMULARIO PARA BOLSA -->
+                        <div id="formBolsa">
+                            <div class="form-group">
+                                <label for="anchoBolsa">Ancho de la Bolsa (cm) *</label>
+                                <input type="number" id="anchoBolsa" min="5" max="200" value="30" step="1">
+                                <small style="color: var(--text-light);">Rango: 5 - 200 cm</small>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="largoBolsa">Largo de la Bolsa (cm) *</label>
+                                <input type="number" id="largoBolsa" min="5" max="300" value="40" step="1">
+                                <small style="color: var(--text-light);">Rango: 5 - 300 cm</small>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="espesorBolsa">Espesor (micras) *</label>
+                                <input type="number" id="espesorBolsa" min="10" max="200" value="50" step="5">
+                                <small style="color: var(--text-light);">Rango: 10 - 200 micras</small>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="colorBolsa">Color del Material</label>
+                                <select id="colorBolsa">
+                                    <option value="Transparente">Transparente</option>
+                                    <option value="Blanco">Blanco</option>
+                                    <option value="Negro">Negro</option>
+                                    <option value="Azul">Azul</option>
+                                    <option value="Rojo">Rojo</option>
+                                    <option value="Verde">Verde</option>
+                                    <option value="Personalizado">Personalizado</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- FORMULARIO PARA CAPUCHÓN (OCULTO) -->
+                        <div id="formCapucho" class="hidden">
+                            <div class="form-group">
+                                <label for="anchoCapucho">Ancho del Capuchón (cm) *</label>
+                                <input type="number" id="anchoCapucho" min="5" max="150" value="25" step="1">
+                                <small style="color: var(--text-light);">Rango: 5 - 150 cm</small>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="altoCapucho">Alto del Capuchón (cm) *</label>
+                                <input type="number" id="altoCapucho" min="5" max="200" value="35" step="1">
+                                <small style="color: var(--text-light);">Rango: 5 - 200 cm</small>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="fuelleCapucho">Fuelle Lateral (cm)</label>
+                                <input type="number" id="fuelleCapucho" min="0" max="50" value="5" step="1">
+                                <small style="color: var(--text-light);">Rango: 0 - 50 cm (0 = sin fuelle)</small>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="espesorCapucho">Espesor (micras) *</label>
+                                <input type="number" id="espesorCapucho" min="10" max="200" value="50" step="5">
+                                <small style="color: var(--text-light);">Rango: 10 - 200 micras</small>
+                            </div>
+                        </div>
+
+                        <!-- BOTONES DE ACCIÓN -->
+                        <div style="margin-top: 2rem;">
+                            <button onclick="guardarDiseno()" class="btn btn-success" style="width: 100%; margin-bottom: 0.5rem;">
+                                💾 Guardar Diseño y Solicitar Cotización
+                            </button>
+                            <button onclick="resetearDiseno()" class="btn btn-secondary" style="width: 100%;">
+                                🔄 Resetear Diseño
+                            </button>
+                        </div>
+
+                        <!-- INFORMACIÓN ADICIONAL -->
+                        <div style="margin-top: 2rem; padding: 1rem; background: var(--bg-light); border-radius: 8px; border-left: 4px solid var(--primary-color);">
+                            <p style="color: var(--text-dark); margin-bottom: 0.5rem;">
+                                <strong>💡 Nota:</strong>
+                            </p>
+                            <p style="color: var(--text-light); font-size: 0.95rem;">
+                                Los precios varían según las especificaciones. Una vez guardes tu diseño, 
+                                nuestro equipo te contactará con una cotización detallada.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- VISTA PREVIA -->
+                    <div class="designer-preview">
+                        <h3 style="color: var(--primary-color); margin-bottom: 1.5rem; text-align: center;">
+                            Vista Previa del Diseño
+                        </h3>
+                        
+                        <canvas id="productCanvas" width="500" height="500"></canvas>
+                        
+                        <div id="dimensionesInfo" style="margin-top: 1.5rem; padding: 1rem; background: var(--bg-light); border-radius: 8px;">
+                            <h4 style="color: var(--primary-color); margin-bottom: 0.5rem;">Especificaciones:</h4>
+                            <div id="infoContent" style="color: var(--text-dark);"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- PIE DE PÁGINA -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h4>Plásticos y Desechables La Doble B S.A.S</h4>
+                    <p>Tu aliado en soluciones de empaque y plásticos industriales.</p>
+                </div>
+                <div class="footer-column">
+                    <h4>Enlaces Rápidos</h4>
+                    <ul>
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="productos.html">Productos</a></li>
+                        <li><a href="disenador.html">Diseñador</a></li>
+                        <li><a href="admin.html">Administración</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Contacto</h4>
+                    <p>📞 Teléfono: +57 300 123 4567</p>
+                    <p>📧 Email: ventas@ladobleb.com</p>
+                    <p>📍 La Ceja, Antioquia, Colombia</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Plásticos y Desechables La Doble B S.A.S - Todos los derechos reservados</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- SCRIPTS -->
+    <script src="js/script.js"></script>
+    <script>
+        const canvas = document.getElementById('productCanvas');
+        
+        // Cambiar tipo de producto
+        document.getElementById('tipoProducto').addEventListener('change', function() {
+            const tipo = this.value;
+            document.getElementById('formBolsa').classList.toggle('hidden', tipo !== 'bolsa');
+            document.getElementById('formCapucho').classList.toggle('hidden', tipo !== 'capucho');
+            actualizarVista();
+        });
+
+        // Event listeners para actualizar vista en tiempo real
+        ['anchoBolsa', 'largoBolsa', 'espesorBolsa'].forEach(id => {
+            document.getElementById(id)?.addEventListener('input', actualizarVista);
+        });
+
+        ['anchoCapucho', 'altoCapucho', 'fuelleCapucho', 'espesorCapucho'].forEach(id => {
+            document.getElementById(id)?.addEventListener('input', actualizarVista);
+        });
+
+        // Función para actualizar la vista previa
+        function actualizarVista() {
+            const tipo = document.getElementById('tipoProducto').value;
+            
+            if (tipo === 'bolsa') {
+                const ancho = parseInt(document.getElementById('anchoBolsa').value) || 30;
+                const largo = parseInt(document.getElementById('largoBolsa').value) || 40;
+                const espesor = parseInt(document.getElementById('espesorBolsa').value) || 50;
+                const color = document.getElementById('colorBolsa').value;
+                
+                drawBag(canvas, ancho, largo, espesor);
+                
+                document.getElementById('infoContent').innerHTML = `
+                    <p><strong>Tipo:</strong> Bolsa Plástica</p>
+                    <p><strong>Ancho:</strong> ${ancho} cm</p>
+                    <p><strong>Largo:</strong> ${largo} cm</p>
+                    <p><strong>Espesor:</strong> ${espesor} micras</p>
+                    <p><strong>Color:</strong> ${color}</p>
+                    <p><strong>Área Total:</strong> ${(ancho * largo / 10000).toFixed(2)} m²</p>
+                `;
+            } else {
+                const ancho = parseInt(document.getElementById('anchoCapucho').value) || 25;
+                const alto = parseInt(document.getElementById('altoCapucho').value) || 35;
+                const fuelle = parseInt(document.getElementById('fuelleCapucho').value) || 5;
+                const espesor = parseInt(document.getElementById('espesorCapucho').value) || 50;
+                
+                drawCapucho(canvas, ancho, alto, fuelle);
+                
+                document.getElementById('infoContent').innerHTML = `
+                    <p><strong>Tipo:</strong> Capuchón / Funda</p>
+                    <p><strong>Ancho:</strong> ${ancho} cm</p>
+                    <p><strong>Alto:</strong> ${alto} cm</p>
+                    <p><strong>Fuelle:</strong> ${fuelle} cm ${fuelle > 0 ? '(expandible)' : '(sin fuelle)'}</p>
+                    <p><strong>Espesor:</strong> ${espesor} micras</p>
+                `;
+            }
+        }
+
+        // Guardar diseño
+        function guardarDiseno() {
+            const user = getCurrentUser();
+            if (!user) {
+                if (confirm('Debes iniciar sesión para guardar diseños. ¿Deseas ir al login?')) {
+                    window.location.href = 'login.html';
+                }
+                return;
+            }
+
+            const tipo = document.getElementById('tipoProducto').value;
+            let descripcion = '';
+            
+            if (tipo === 'bolsa') {
+                const ancho = document.getElementById('anchoBolsa').value;
+                const largo = document.getElementById('largoBolsa').value;
+                const espesor = document.getElementById('espesorBolsa').value;
+                const color = document.getElementById('colorBolsa').value;
+                descripcion = `Bolsa Personalizada ${ancho}x${largo}cm, ${espesor} micras, Color: ${color}`;
+            } else {
+                const ancho = document.getElementById('anchoCapucho').value;
+                const alto = document.getElementById('altoCapucho').value;
+                const fuelle = document.getElementById('fuelleCapucho').value;
+                const espesor = document.getElementById('espesorCapucho').value;
+                descripcion = `Capuchón Personalizado ${ancho}x${alto}cm, Fuelle: ${fuelle}cm, ${espesor} micras`;
+            }
+            
+            // Crear pedido con el diseño
+            const nuevoPedido = {
+                id: generateId(),
+                userEmail: user.email,
+                userName: user.nombre,
+                userEmpresa: user.empresa,
+                producto: descripcion,
+                cantidad: 0, // Se definirá después
+                medida: 'Personalizado',
+                comentarios: 'Producto diseñado con el diseñador online. Solicito cotización.',
+                estado: 'Pendiente',
+                fecha: new Date().toISOString()
+            };
+            
+            saveOrder(nuevoPedido);
+            
+            showAlert('¡Diseño guardado exitosamente! Tu solicitud ha sido enviada. Te contactaremos pronto.', 'success');
+            
+            setTimeout(() => {
+                window.location.href = 'pedidos.html';
+            }, 2000);
+        }
+
+        // Resetear diseño
+        function resetearDiseno() {
+            if (confirm('¿Estás seguro de resetear el diseño?')) {
+                const tipo = document.getElementById('tipoProducto').value;
+                if (tipo === 'bolsa') {
+                    document.getElementById('anchoBolsa').value = 30;
+                    document.getElementById('largoBolsa').value = 40;
+                    document.getElementById('espesorBolsa').value = 50;
+                    document.getElementById('colorBolsa').value = 'Transparente';
+                } else {
+                    document.getElementById('anchoCapucho').value = 25;
+                    document.getElementById('altoCapucho').value = 35;
+                    document.getElementById('fuelleCapucho').value = 5;
+                    document.getElementById('espesorCapucho').value = 50;
+                }
+                actualizarVista();
+            }
+        }
+
+        // Inicializar vista
+        window.addEventListener('DOMContentLoaded', actualizarVista);
+    </script>
+</body>
+</html>

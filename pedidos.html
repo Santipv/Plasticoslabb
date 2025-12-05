@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis Pedidos - Plásticos La Doble B</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- ENCABEZADO Y NAVEGACIÓN -->
+    <header class="main-header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <h1>La Doble B</h1>
+                    <p class="tagline">Plásticos y Desechables</p>
+                </div>
+                <nav class="main-nav">
+                    <ul>
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="productos.html">Productos</a></li>
+                        <li><a href="disenador.html">Diseñador</a></li>
+                        <li><a href="pedidos.html" class="active">Mis Pedidos</a></li>
+                        <li><a href="login.html">Iniciar Sesión</a></li>
+                        <li><a href="registro.html" class="btn-register">Registrarse</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main>
+        <section class="about-section">
+            <div class="container">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;">
+                    <div>
+                        <h2 class="section-title" style="margin-bottom: 0.5rem; text-align: left;">Mis Pedidos</h2>
+                        <p id="userWelcome" style="color: var(--text-light); font-size: 1.1rem;"></p>
+                    </div>
+                    <button onclick="mostrarFormulario()" class="btn btn-primary" id="btnNuevoPedido">
+                        + Nuevo Pedido
+                    </button>
+                </div>
+
+                <!-- FORMULARIO DE NUEVO PEDIDO (OCULTO POR DEFECTO) -->
+                <div id="formularioPedido" class="form-container hidden" style="margin-bottom: 2rem;">
+                    <h3 style="color: var(--primary-color); margin-bottom: 1.5rem;">Crear Nuevo Pedido</h3>
+                    
+                    <form id="pedidoForm">
+                        <div class="form-group">
+                            <label for="producto">Producto / Artículo *</label>
+                            <input type="text" id="producto" name="producto" required 
+                                   placeholder="Ej: Bolsa plástica tipo camiseta">
+                        </div>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                            <div class="form-group">
+                                <label for="cantidad">Cantidad *</label>
+                                <input type="number" id="cantidad" name="cantidad" required min="1"
+                                       placeholder="Ej: 1000">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="medida">Medida / Tamaño *</label>
+                                <input type="text" id="medida" name="medida" required 
+                                       placeholder="Ej: 30x40 cm">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="comentarios">Comentarios / Especificaciones Adicionales</label>
+                            <textarea id="comentarios" name="comentarios" 
+                                      placeholder="Añade cualquier detalle importante sobre tu pedido..."></textarea>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-success">Crear Pedido</button>
+                            <button type="button" onclick="ocultarFormulario()" class="btn btn-secondary">
+                                Cancelar
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- LISTA DE PEDIDOS -->
+                <div id="listaPedidos">
+                    <!-- Los pedidos se cargarán aquí dinámicamente -->
+                </div>
+
+                <!-- MENSAJE SI NO HAY PEDIDOS -->
+                <div id="noPedidos" class="hidden" style="text-align: center; padding: 3rem; background: white; border-radius: 10px; box-shadow: var(--shadow-md);">
+                    <p style="font-size: 4rem; margin-bottom: 1rem;">📦</p>
+                    <h3 style="color: var(--text-dark); margin-bottom: 0.5rem;">No tienes pedidos todavía</h3>
+                    <p style="color: var(--text-light); margin-bottom: 1.5rem;">
+                        Crea tu primer pedido para comenzar
+                    </p>
+                    <button onclick="mostrarFormulario()" class="btn btn-primary">
+                        Crear Mi Primer Pedido
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- PIE DE PÁGINA -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h4>Plásticos y Desechables La Doble B S.A.S</h4>
+                    <p>Tu aliado en soluciones de empaque y plásticos industriales.</p>
+                </div>
+                <div class="footer-column">
+                    <h4>Enlaces Rápidos</h4>
+                    <ul>
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="productos.html">Productos</a></li>
+                        <li><a href="disenador.html">Diseñador</a></li>
+                        <li><a href="admin.html">Administración</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Contacto</h4>
+                    <p>📞 Teléfono: +57 300 123 4567</p>
+                    <p>📧 Email: ventas@ladobleb.com</p>
+                    <p>📍 La Ceja, Antioquia, Colombia</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Plásticos y Desechables La Doble B S.A.S - Todos los derechos reservados</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- SCRIPTS -->
+    <script src="js/script.js"></script>
+    <script>
+        let usuarioActual = null;
+
+        // Verificar autenticación al cargar
+        window.addEventListener('DOMContentLoaded', function() {
+            if (!checkAuth()) {
+                return;
+            }
+            
+            usuarioActual = getCurrentUser();
+            document.getElementById('userWelcome').textContent = 
+                `Bienvenido, ${usuarioActual.nombre} (${usuarioActual.empresa})`;
+            
+            cargarPedidos();
+            
+            // Si hay un producto seleccionado desde el catálogo
+            const productoSeleccionado = localStorage.getItem('productoSeleccionado');
+            if (productoSeleccionado) {
+                document.getElementById('producto').value = productoSeleccionado;
+                mostrarFormulario();
+                localStorage.removeItem('productoSeleccionado');
+            }
+        });
+
+        // Mostrar formulario de nuevo pedido
+        function mostrarFormulario() {
+            document.getElementById('formularioPedido').classList.remove('hidden');
+            document.getElementById('btnNuevoPedido').style.display = 'none';
+            document.getElementById('formularioPedido').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Ocultar formulario
+        function ocultarFormulario() {
+            document.getElementById('formularioPedido').classList.add('hidden');
+            document.getElementById('btnNuevoPedido').style.display = 'inline-block';
+            document.getElementById('pedidoForm').reset();
+        }
+
+        // Manejar envío del formulario
+        document.getElementById('pedidoForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const producto = document.getElementById('producto').value.trim();
+            const cantidad = document.getElementById('cantidad').value;
+            const medida = document.getElementById('medida').value.trim();
+            const comentarios = document.getElementById('comentarios').value.trim();
+            
+            if (!producto || !cantidad || !medida) {
+                showAlert('Por favor completa todos los campos obligatorios', 'error');
+                return;
+            }
+            
+            const nuevoPedido = {
+                id: generateId(),
+                userEmail: usuarioActual.email,
+                userName: usuarioActual.nombre,
+                userEmpresa: usuarioActual.empresa,
+                producto: producto,
+                cantidad: parseInt(cantidad),
+                medida: medida,
+                comentarios: comentarios,
+                estado: 'Pendiente',
+                fecha: new Date().toISOString()
+            };
+            
+            saveOrder(nuevoPedido);
+            showAlert('¡Pedido creado exitosamente! Nos contactaremos contigo pronto.', 'success');
+            
+            ocultarFormulario();
+            cargarPedidos();
+        });
+
+        // Cargar y mostrar pedidos
+        function cargarPedidos() {
+            const pedidos = getUserOrders(usuarioActual.email);
+            const listaPedidos = document.getElementById('listaPedidos');
+            const noPedidos = document.getElementById('noPedidos');
+            
+            if (pedidos.length === 0) {
+                listaPedidos.innerHTML = '';
+                noPedidos.classList.remove('hidden');
+                return;
+            }
+            
+            noPedidos.classList.add('hidden');
+            
+            // Ordenar por fecha (más recientes primero)
+            pedidos.sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
+            
+            listaPedidos.innerHTML = pedidos.map(pedido => `
+                <div class="admin-card" style="margin-bottom: 1.5rem;">
+                    <div style="display: flex; justify-content: space-between; align-items: start; flex-wrap: wrap; gap: 1rem;">
+                        <div style="flex: 1; min-width: 250px;">
+                            <h3 style="color: var(--primary-color); margin-bottom: 0.5rem;">
+                                ${pedido.producto}
+                            </h3>
+                            <p style="color: var(--text-light); margin-bottom: 0.3rem;">
+                                <strong>ID Pedido:</strong> ${pedido.id}
+                            </p>
+                            <p style="color: var(--text-light); margin-bottom: 0.3rem;">
+                                <strong>Fecha:</strong> ${formatDate(pedido.fecha)}
+                            </p>
+                            <p style="color: var(--text-light); margin-bottom: 0.3rem;">
+                                <strong>Cantidad:</strong> ${pedido.cantidad.toLocaleString()} unidades
+                            </p>
+                            <p style="color: var(--text-light); margin-bottom: 0.3rem;">
+                                <strong>Medida:</strong> ${pedido.medida}
+                            </p>
+                            ${pedido.comentarios ? `
+                                <p style="color: var(--text-light); margin-top: 1rem; padding: 0.75rem; background: var(--bg-light); border-radius: 5px;">
+                                    <strong>Comentarios:</strong><br>${pedido.comentarios}
+                                </p>
+                            ` : ''}
+                        </div>
+                        <div style="text-align: right;">
+                            <span class="badge-estado ${pedido.estado.toLowerCase()}" 
+                                  style="display: inline-block; padding: 0.5rem 1rem; border-radius: 20px; font-weight: bold; margin-bottom: 1rem;
+                                         background: ${pedido.estado === 'Pendiente' ? '#ffc107' : 
+                                                      pedido.estado === 'En Proceso' ? '#17a2b8' : 
+                                                      pedido.estado === 'Completado' ? '#28a745' : '#dc3545'};
+                                         color: white;">
+                                ${pedido.estado}
+                            </span>
+                            <br>
+                            <button onclick="eliminarPedido('${pedido.id}')" 
+                                    class="btn btn-danger" 
+                                    style="padding: 0.5rem 1rem; font-size: 0.9rem;">
+                                Eliminar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Eliminar pedido
+        function eliminarPedido(pedidoId) {
+            if (confirm('¿Estás seguro de que deseas eliminar este pedido?')) {
+                deleteOrder(pedidoId);
+                showAlert('Pedido eliminado correctamente', 'success');
+                cargarPedidos();
+            }
+        }
+    </script>
+</body>
+</html>

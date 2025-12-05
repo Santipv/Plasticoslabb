@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo de Productos - Plásticos La Doble B</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- ENCABEZADO Y NAVEGACIÓN -->
+    <header class="main-header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <h1>La Doble B</h1>
+                    <p class="tagline">Plásticos y Desechables</p>
+                </div>
+                <nav class="main-nav">
+                    <ul>
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="productos.html" class="active">Productos</a></li>
+                        <li><a href="disenador.html">Diseñador</a></li>
+                        <li><a href="pedidos.html">Mis Pedidos</a></li>
+                        <li><a href="login.html">Iniciar Sesión</a></li>
+                        <li><a href="registro.html" class="btn-register">Registrarse</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main>
+        <section class="about-section">
+            <div class="container">
+                <h2 class="section-title">Nuestro Catálogo</h2>
+                <p style="text-align: center; max-width: 800px; margin: 0 auto 2rem; color: var(--text-light); font-size: 1.1rem;">
+                    Explora nuestra amplia variedad de productos plásticos de alta calidad. 
+                    Desde bolsas personalizadas hasta empaques industriales.
+                </p>
+
+                <!-- FILTROS -->
+                <div style="background: white; padding: 1.5rem; border-radius: 10px; box-shadow: var(--shadow-sm); margin-bottom: 2rem;">
+                    <div style="display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
+                        <label style="font-weight: 600; color: var(--primary-color);">Filtrar por:</label>
+                        <select id="filterCategory" style="padding: 0.5rem 1rem; border: 2px solid var(--border-color); border-radius: 5px; cursor: pointer;">
+                            <option value="todas">Todas las categorías</option>
+                            <option value="Bolsas">Bolsas</option>
+                            <option value="Empaques">Empaques</option>
+                            <option value="Desechables">Desechables</option>
+                        </select>
+                        <input type="text" id="searchProduct" placeholder="Buscar producto..." 
+                               style="flex: 1; min-width: 200px; padding: 0.5rem 1rem; border: 2px solid var(--border-color); border-radius: 5px;">
+                    </div>
+                </div>
+
+                <!-- GRID DE PRODUCTOS -->
+                <div class="catalog-grid" id="productosGrid">
+                    <!-- Los productos se cargarán dinámicamente aquí -->
+                </div>
+
+                <!-- MENSAJE SI NO HAY PRODUCTOS -->
+                <div id="noProducts" class="hidden" style="text-align: center; padding: 3rem; background: white; border-radius: 10px;">
+                    <p style="font-size: 3rem; margin-bottom: 1rem;">📦</p>
+                    <h3 style="color: var(--text-light);">No se encontraron productos</h3>
+                    <p style="color: var(--text-light);">Intenta con otro filtro o búsqueda</p>
+                </div>
+
+                <!-- LLAMADO A LA ACCIÓN -->
+                <div style="text-align: center; margin-top: 3rem; padding: 2rem; background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); border-radius: 10px; color: white;">
+                    <h3 style="margin-bottom: 1rem;">¿No encontraste lo que buscas?</h3>
+                    <p style="margin-bottom: 1.5rem; opacity: 0.9;">
+                        Diseña tu producto personalizado con nuestro diseñador online
+                    </p>
+                    <a href="disenador.html" class="btn btn-light">Ir al Diseñador</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- PIE DE PÁGINA -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h4>Plásticos y Desechables La Doble B S.A.S</h4>
+                    <p>Tu aliado en soluciones de empaque y plásticos industriales.</p>
+                </div>
+                <div class="footer-column">
+                    <h4>Enlaces Rápidos</h4>
+                    <ul>
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="productos.html">Productos</a></li>
+                        <li><a href="disenador.html">Diseñador</a></li>
+                        <li><a href="admin.html">Administración</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Contacto</h4>
+                    <p>📞 Teléfono: +57 300 123 4567</p>
+                    <p>📧 Email: ventas@ladobleb.com</p>
+                    <p>📍 La Ceja, Antioquia, Colombia</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Plásticos y Desechables La Doble B S.A.S - Todos los derechos reservados</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- SCRIPTS -->
+    <script src="js/script.js"></script>
+    <script>
+        let todosLosProductos = [];
+
+        // Función para renderizar productos
+        function renderProducts(products) {
+            const grid = document.getElementById('productosGrid');
+            const noProducts = document.getElementById('noProducts');
+            
+            if (products.length === 0) {
+                grid.style.display = 'none';
+                noProducts.classList.remove('hidden');
+                return;
+            }
+            
+            grid.style.display = 'grid';
+            noProducts.classList.add('hidden');
+            
+            grid.innerHTML = products.map(product => `
+                <div class="catalog-item" data-category="${product.categoria}">
+                    <div class="catalog-item-image">
+                        ${product.imagen}
+                    </div>
+                    <div class="catalog-item-info">
+                        <h3>${product.nombre}</h3>
+                        <p><strong>Categoría:</strong> ${product.categoria}</p>
+                        <p>${product.descripcion}</p>
+                        <p><strong>Medida:</strong> ${product.medida}</p>
+                        <p class="catalog-item-price">${product.precio}</p>
+                        <button onclick="contactarProducto('${product.nombre}')" 
+                                class="btn btn-primary" style="width: 100%; margin-top: 0.5rem;">
+                            Solicitar Cotización
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Función para contactar sobre un producto
+        function contactarProducto(nombreProducto) {
+            const user = getCurrentUser();
+            if (!user) {
+                if (confirm('Debes iniciar sesión para solicitar cotizaciones. ¿Deseas ir al login?')) {
+                    window.location.href = 'login.html';
+                }
+                return;
+            }
+            
+            // Redirigir a pedidos con el producto seleccionado
+            localStorage.setItem('productoSeleccionado', nombreProducto);
+            window.location.href = 'pedidos.html';
+        }
+
+        // Función para filtrar productos
+        function filtrarProductos() {
+            const categoria = document.getElementById('filterCategory').value;
+            const busqueda = document.getElementById('searchProduct').value.toLowerCase();
+            
+            let productosFiltrados = todosLosProductos;
+            
+            // Filtrar por categoría
+            if (categoria !== 'todas') {
+                productosFiltrados = productosFiltrados.filter(p => p.categoria === categoria);
+            }
+            
+            // Filtrar por búsqueda
+            if (busqueda) {
+                productosFiltrados = productosFiltrados.filter(p => 
+                    p.nombre.toLowerCase().includes(busqueda) ||
+                    p.descripcion.toLowerCase().includes(busqueda) ||
+                    p.categoria.toLowerCase().includes(busqueda)
+                );
+            }
+            
+            renderProducts(productosFiltrados);
+        }
+
+        // Cargar productos al iniciar
+        window.addEventListener('DOMContentLoaded', function() {
+            todosLosProductos = getProducts();
+            renderProducts(todosLosProductos);
+            
+            // Event listeners para filtros
+            document.getElementById('filterCategory').addEventListener('change', filtrarProductos);
+            document.getElementById('searchProduct').addEventListener('input', filtrarProductos);
+        });
+    </script>
+</body>
+</html>

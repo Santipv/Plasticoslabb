@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administración - Plásticos La Doble B</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- ENCABEZADO Y NAVEGACIÓN -->
+    <header class="main-header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <h1>La Doble B</h1>
+                    <p class="tagline">Plásticos y Desechables</p>
+                </div>
+                <nav class="main-nav">
+                    <ul>
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="productos.html">Productos</a></li>
+                        <li><a href="disenador.html">Diseñador</a></li>
+                        <li><a href="pedidos.html">Mis Pedidos</a></li>
+                        <li><a href="admin.html" class="active">Administración</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main>
+        <section class="about-section">
+            <div class="container">
+                <!-- VERIFICACIÓN DE ACCESO -->
+                <div id="loginAdmin" class="form-container">
+                    <h2 class="section-title">Panel de Administración</h2>
+                    <p style="text-align: center; color: var(--text-light); margin-bottom: 2rem;">
+                        Ingresa la clave de administrador para acceder
+                    </p>
+                    
+                    <form id="adminLoginForm">
+                        <div class="form-group">
+                            <label for="claveAdmin">Clave de Administrador</label>
+                            <input type="password" id="claveAdmin" name="claveAdmin" required 
+                                   placeholder="Ingresa la clave"
+                                   autocomplete="current-password">
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">
+                            Acceder al Panel
+                        </button>
+                        
+                        <div style="margin-top: 1.5rem; padding: 1rem; background: #fff3cd; border-radius: 5px; border-left: 4px solid #ffc107;">
+                            <p style="color: #856404; font-size: 0.9rem; margin: 0;">
+                                <strong>🔒 Clave de prueba:</strong> admin2025
+                            </p>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- PANEL DE ADMINISTRACIÓN (OCULTO) -->
+                <div id="panelAdmin" class="hidden">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;">
+                        <h2 class="section-title" style="margin: 0; text-align: left;">Panel de Administración</h2>
+                        <button onclick="cerrarSesionAdmin()" class="btn btn-danger">Cerrar Sesión Admin</button>
+                    </div>
+
+                    <!-- ESTADÍSTICAS -->
+                    <div class="admin-dashboard">
+                        <div class="admin-card">
+                            <h3>📊 Estadísticas Generales</h3>
+                            <div style="font-size: 2rem; color: var(--primary-color); margin: 1rem 0;">
+                                <span id="totalProductos">0</span>
+                            </div>
+                            <p style="color: var(--text-light);">Total de Productos</p>
+                        </div>
+
+                        <div class="admin-card">
+                            <h3>👥 Usuarios Registrados</h3>
+                            <div style="font-size: 2rem; color: var(--success); margin: 1rem 0;">
+                                <span id="totalUsuarios">0</span>
+                            </div>
+                            <p style="color: var(--text-light);">Clientes en el Sistema</p>
+                        </div>
+
+                        <div class="admin-card">
+                            <h3>📦 Pedidos Totales</h3>
+                            <div style="font-size: 2rem; color: var(--accent-color); margin: 1rem 0;">
+                                <span id="totalPedidos">0</span>
+                            </div>
+                            <p style="color: var(--text-light);">Todos los Pedidos</p>
+                        </div>
+                    </div>
+
+                    <!-- AGREGAR NUEVO PRODUCTO -->
+                    <div class="admin-card" style="margin-top: 2rem;">
+                        <h3>➕ Agregar Nuevo Producto</h3>
+                        
+                        <form id="nuevoProductoForm">
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                                <div class="form-group">
+                                    <label for="nombreProd">Nombre del Producto *</label>
+                                    <input type="text" id="nombreProd" required 
+                                           placeholder="Ej: Bolsa Industrial XL">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="categoriaProd">Categoría *</label>
+                                    <select id="categoriaProd" required>
+                                        <option value="">Selecciona una categoría</option>
+                                        <option value="Bolsas">Bolsas</option>
+                                        <option value="Empaques">Empaques</option>
+                                        <option value="Desechables">Desechables</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="descripcionProd">Descripción *</label>
+                                <textarea id="descripcionProd" required 
+                                          placeholder="Describe el producto..."></textarea>
+                            </div>
+
+                            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem;">
+                                <div class="form-group">
+                                    <label for="medidaProd">Medida *</label>
+                                    <input type="text" id="medidaProd" required 
+                                           placeholder="Ej: 50x60 cm">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="imagenProd">Icono/Emoji</label>
+                                    <input type="text" id="imagenProd" 
+                                           placeholder="Ej: 🛍️" maxlength="2" value="📦">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="precioProd">Precio</label>
+                                    <input type="text" id="precioProd" 
+                                           placeholder="Ej: Consultar" value="Consultar">
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-success" style="width: 100%;">
+                                ✅ Agregar Producto
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- LISTA DE PRODUCTOS -->
+                    <div class="admin-card" style="margin-top: 2rem;">
+                        <h3>📋 Productos Actuales</h3>
+                        
+                        <div class="table-container">
+                            <table id="tablaProductos">
+                                <thead>
+                                    <tr>
+                                        <th>Icono</th>
+                                        <th>Nombre</th>
+                                        <th>Categoría</th>
+                                        <th>Medida</th>
+                                        <th>Precio</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tablaProductosBody">
+                                    <!-- Se llenará dinámicamente -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- LISTA DE TODOS LOS PEDIDOS -->
+                    <div class="admin-card" style="margin-top: 2rem;">
+                        <h3>📦 Todos los Pedidos</h3>
+                        
+                        <div id="todosPedidos">
+                            <!-- Se llenarán dinámicamente -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- PIE DE PÁGINA -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h4>Plásticos y Desechables La Doble B S.A.S</h4>
+                    <p>Tu aliado en soluciones de empaque y plásticos industriales.</p>
+                </div>
+                <div class="footer-column">
+                    <h4>Enlaces Rápidos</h4>
+                    <ul>
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="productos.html">Productos</a></li>
+                        <li><a href="disenador.html">Diseñador</a></li>
+                        <li><a href="admin.html">Administración</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Contacto</h4>
+                    <p>📞 Teléfono: +57 300 123 4567</p>
+                    <p>📧 Email: ventas@ladobleb.com</p>
+                    <p>📍 La Ceja, Antioquia, Colombia</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Plásticos y Desechables La Doble B S.A.S - Todos los derechos reservados</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- SCRIPTS -->
+    <script src="js/script.js"></script>
+    <script>
+        const CLAVE_ADMIN = 'admin2025';
+        const ADMIN_SESSION = 'dobleB_adminSession';
+
+        // Verificar si ya hay sesión de admin
+        window.addEventListener('DOMContentLoaded', function() {
+            if (localStorage.getItem(ADMIN_SESSION) === 'true') {
+                mostrarPanel();
+            }
+        });
+
+        // Login de administrador
+        document.getElementById('adminLoginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const clave = document.getElementById('claveAdmin').value;
+            
+            if (clave === CLAVE_ADMIN) {
+                localStorage.setItem(ADMIN_SESSION, 'true');
+                mostrarPanel();
+                showAlert('¡Acceso concedido! Bienvenido al panel de administración.', 'success');
+            } else {
+                showAlert('Clave incorrecta. Intenta nuevamente.', 'error');
+            }
+        });
+
+        // Mostrar panel de administración
+        function mostrarPanel() {
+            document.getElementById('loginAdmin').classList.add('hidden');
+            document.getElementById('panelAdmin').classList.remove('hidden');
+            cargarEstadisticas();
+            cargarProductos();
+            cargarTodosPedidos();
+        }
+
+        // Cerrar sesión admin
+        function cerrarSesionAdmin() {
+            localStorage.removeItem(ADMIN_SESSION);
+            document.getElementById('loginAdmin').classList.remove('hidden');
+            document.getElementById('panelAdmin').classList.add('hidden');
+            document.getElementById('claveAdmin').value = '';
+            showAlert('Sesión de administrador cerrada', 'success');
+        }
+
+        // Cargar estadísticas
+        function cargarEstadisticas() {
+            document.getElementById('totalProductos').textContent = getProducts().length;
+            document.getElementById('totalUsuarios').textContent = getUsers().length;
+            document.getElementById('totalPedidos').textContent = getOrders().length;
+        }
+
+        // Agregar nuevo producto
+        document.getElementById('nuevoProductoForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const nuevoProducto = {
+                nombre: document.getElementById('nombreProd').value.trim(),
+                categoria: document.getElementById('categoriaProd').value,
+                descripcion: document.getElementById('descripcionProd').value.trim(),
+                medida: document.getElementById('medidaProd').value.trim(),
+                imagen: document.getElementById('imagenProd').value.trim() || '📦',
+                precio: document.getElementById('precioProd').value.trim()
+            };
+            
+            saveProduct(nuevoProducto);
+            showAlert('¡Producto agregado exitosamente!', 'success');
+            this.reset();
+            document.getElementById('imagenProd').value = '📦';
+            document.getElementById('precioProd').value = 'Consultar';
+            cargarProductos();
+            cargarEstadisticas();
+        });
+
+        // Cargar productos en tabla
+        function cargarProductos() {
+            const productos = getProducts();
+            const tbody = document.getElementById('tablaProductosBody');
+            
+            if (productos.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; color: var(--text-light);">No hay productos registrados</td></tr>';
+                return;
+            }
+            
+            tbody.innerHTML = productos.map(p => `
+                <tr>
+                    <td style="font-size: 2rem; text-align: center;">${p.imagen}</td>
+                    <td><strong>${p.nombre}</strong></td>
+                    <td>${p.categoria}</td>
+                    <td>${p.medida}</td>
+                    <td>${p.precio}</td>
+                    <td>
+                        <button onclick="eliminarProductoAdmin(${p.id})" class="btn btn-danger" style="padding: 0.25rem 0.75rem; font-size: 0.85rem;">
+                            Eliminar
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        // Eliminar producto
+        function eliminarProductoAdmin(id) {
+            if (confirm('¿Estás seguro de eliminar este producto?')) {
+                deleteProduct(id);
+                showAlert('Producto eliminado correctamente', 'success');
+                cargarProductos();
+                cargarEstadisticas();
+            }
+        }
+
+        // Cargar todos los pedidos
+        function cargarTodosPedidos() {
+            const pedidos = getOrders();
+            const container = document.getElementById('todosPedidos');
+            
+            if (pedidos.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: var(--text-light); padding: 2rem;">No hay pedidos registrados</p>';
+                return;
+            }
+            
+            // Ordenar por fecha
+            pedidos.sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
+            
+            container.innerHTML = pedidos.map(p => `
+                <div style="background: var(--bg-light); padding: 1rem; border-radius: 8px; margin-bottom: 1rem; border-left: 4px solid var(--primary-color);">
+                    <div style="display: flex; justify-content: space-between; align-items: start; flex-wrap: wrap; gap: 1rem;">
+                        <div style="flex: 1;">
+                            <p style="margin-bottom: 0.5rem;"><strong>ID:</strong> ${p.id}</p>
+                            <p style="margin-bottom: 0.5rem;"><strong>Cliente:</strong> ${p.userName} (${p.userEmpresa})</p>
+                            <p style="margin-bottom: 0.5rem;"><strong>Email:</strong> ${p.userEmail}</p>
+                            <p style="margin-bottom: 0.5rem;"><strong>Producto:</strong> ${p.producto}</p>
+                            <p style="margin-bottom: 0.5rem;"><strong>Cantidad:</strong> ${p.cantidad > 0 ? p.cantidad.toLocaleString() + ' unidades' : 'Por definir'}</p>
+                            <p style="margin-bottom: 0.5rem;"><strong>Medida:</strong> ${p.medida}</p>
+                            <p style="margin-bottom: 0.5rem;"><strong>Fecha:</strong> ${formatDate(p.fecha)}</p>
+                            ${p.comentarios ? `<p style="margin-top: 0.5rem; padding: 0.5rem; background: white; border-radius: 4px;"><strong>Comentarios:</strong> ${p.comentarios}</p>` : ''}
+                        </div>
+                        <div>
+                            <span style="display: inline-block; padding: 0.5rem 1rem; border-radius: 20px; font-weight: bold; background: ${p.estado === 'Pendiente' ? '#ffc107' : p.estado === 'En Proceso' ? '#17a2b8' : '#28a745'}; color: white;">
+                                ${p.estado}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+    </script>
+</body>
+</html>

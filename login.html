@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión - Plásticos La Doble B</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- ENCABEZADO Y NAVEGACIÓN -->
+    <header class="main-header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <h1>La Doble B</h1>
+                    <p class="tagline">Plásticos y Desechables</p>
+                </div>
+                <nav class="main-nav">
+                    <ul>
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="productos.html">Productos</a></li>
+                        <li><a href="disenador.html">Diseñador</a></li>
+                        <li><a href="pedidos.html">Mis Pedidos</a></li>
+                        <li><a href="login.html" class="active">Iniciar Sesión</a></li>
+                        <li><a href="registro.html" class="btn-register">Registrarse</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main>
+        <section class="about-section">
+            <div class="container">
+                <h2 class="section-title">Iniciar Sesión</h2>
+                
+                <!-- FORMULARIO DE LOGIN -->
+                <div class="form-container">
+                    <h3 style="text-align: center; color: var(--primary-color); margin-bottom: 1.5rem;">
+                        Accede a tu cuenta
+                    </h3>
+                    
+                    <form id="loginForm">
+                        <div class="form-group">
+                            <label for="email">Correo Electrónico</label>
+                            <input type="email" id="email" name="email" required 
+                                   placeholder="correo@ejemplo.com"
+                                   autocomplete="username">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password">Contraseña</label>
+                            <input type="password" id="password" name="password" required 
+                                   placeholder="Tu contraseña"
+                                   autocomplete="current-password">
+                        </div>
+
+                        <div class="form-group">
+                            <label style="display: flex; align-items: center; gap: 0.5rem;">
+                                <input type="checkbox" id="recordar" name="recordar">
+                                <span>Recordar mi sesión</span>
+                            </label>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
+                            <a href="registro.html" class="btn btn-secondary">Crear Cuenta</a>
+                        </div>
+                    </form>
+
+                    <div style="margin-top: 2rem; padding: 1.5rem; background: #e3f2fd; border-radius: 8px;">
+                        <h4 style="color: var(--primary-color); margin-bottom: 1rem;">
+                            👤 Usuarios de Prueba
+                        </h4>
+                        <p style="color: var(--text-dark); margin-bottom: 0.5rem;">
+                            <strong>Email:</strong> admin@ladobleb.com<br>
+                            <strong>Contraseña:</strong> admin123
+                        </p>
+                        <p style="color: var(--text-light); font-size: 0.9rem; margin-top: 1rem;">
+                            Puedes crear tu propia cuenta o usar las credenciales de prueba
+                        </p>
+                    </div>
+
+                    <p style="text-align: center; margin-top: 1.5rem; color: var(--text-light);">
+                        ¿No tienes cuenta? <a href="registro.html" style="color: var(--primary-color); font-weight: bold;">Regístrate gratis</a>
+                    </p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- PIE DE PÁGINA -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h4>Plásticos y Desechables La Doble B S.A.S</h4>
+                    <p>Tu aliado en soluciones de empaque y plásticos industriales.</p>
+                </div>
+                <div class="footer-column">
+                    <h4>Enlaces Rápidos</h4>
+                    <ul>
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="productos.html">Productos</a></li>
+                        <li><a href="disenador.html">Diseñador</a></li>
+                        <li><a href="admin.html">Administración</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Contacto</h4>
+                    <p>📞 Teléfono: +57 300 123 4567</p>
+                    <p>📧 Email: ventas@ladobleb.com</p>
+                    <p>📍 La Ceja, Antioquia, Colombia</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Plásticos y Desechables La Doble B S.A.S - Todos los derechos reservados</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- SCRIPTS -->
+    <script src="js/script.js"></script>
+    <script>
+        // Si ya hay sesión activa, redirigir
+        window.addEventListener('DOMContentLoaded', function() {
+            const user = getCurrentUser();
+            if (user) {
+                window.location.href = 'pedidos.html';
+            }
+        });
+
+        // Manejo del formulario de login
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Obtener datos del formulario
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+            
+            // Validaciones básicas
+            if (!email || !password) {
+                showAlert('Por favor completa todos los campos', 'error');
+                return;
+            }
+            
+            if (!validateEmail(email)) {
+                showAlert('Por favor ingresa un correo electrónico válido', 'error');
+                return;
+            }
+            
+            // Intentar autenticar
+            const user = authenticateUser(email, password);
+            
+            if (user) {
+                // Login exitoso
+                setCurrentUser(user);
+                showAlert('¡Bienvenido ' + user.nombre + '! Redirigiendo...', 'success');
+                
+                // Redirigir después de 1 segundo
+                setTimeout(() => {
+                    window.location.href = 'pedidos.html';
+                }, 1000);
+            } else {
+                // Credenciales inválidas
+                showAlert('Correo o contraseña incorrectos', 'error');
+            }
+        });
+
+        // Pre-cargar un usuario de prueba si no existe
+        window.addEventListener('DOMContentLoaded', function() {
+            if (!emailExists('admin@ladobleb.com')) {
+                saveUser({
+                    nombre: 'Administrador',
+                    empresa: 'La Doble B S.A.S',
+                    email: 'admin@ladobleb.com',
+                    telefono: '3001234567',
+                    password: 'admin123',
+                    fechaRegistro: new Date().toISOString()
+                });
+            }
+        });
+    </script>
+</body>
+</html>
