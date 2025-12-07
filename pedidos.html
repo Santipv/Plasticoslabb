@@ -8,26 +8,290 @@
 </head>
 <body>
     <!-- ENCABEZADO Y NAVEGACIÓN -->
-    <header class="main-header">
-        <div class="container">
-            <div class="header-content">
-                <div class="logo">
-                    <h1>La Doble B</h1>
-                    <p class="tagline">Plásticos y Desechables</p>
-                </div>
-                <nav class="main-nav">
-                    <ul>
-                        <li><a href="index.html">Inicio</a></li>
-                        <li><a href="productos.html">Productos</a></li>
-                        <li><a href="disenador.html">Diseñador</a></li>
-                        <li><a href="pedidos.html" class="active">Mis Pedidos</a></li>
-                        <li><a href="login.html">Iniciar Sesión</a></li>
-                        <li><a href="registro.html" class="btn-register">Registrarse</a></li>
-                    </ul>
-                </nav>
-            </div>
+    <!-- ========================================
+     HEADER MEJORADO RESPONSIVE
+     Copia este código en TODAS tus páginas HTML
+     Reemplaza el <header> actual por este
+     ======================================== -->
+
+<style>
+/* ESTILOS PARA EL HEADER RESPONSIVE */
+.main-header {
+    background: linear-gradient(135deg, #0066cc, #004999);
+    color: white;
+    padding: 1rem 0;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    position: relative;
+    z-index: 1000;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.logo {
+    flex-shrink: 0;
+}
+
+.logo h1 {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 0.2rem;
+}
+
+.logo .tagline {
+    font-size: 0.85rem;
+    opacity: 0.9;
+}
+
+/* MENÚ HAMBURGUESA */
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.8rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    z-index: 1001;
+}
+
+/* NAVEGACIÓN */
+.main-nav {
+    display: block;
+}
+
+.main-nav ul {
+    display: flex;
+    list-style: none;
+    gap: 0.5rem;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+}
+
+.main-nav li {
+    margin: 0;
+}
+
+.main-nav a {
+    color: white;
+    text-decoration: none;
+    padding: 0.6rem 1rem;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    display: block;
+    white-space: nowrap;
+}
+
+.main-nav a:hover,
+.main-nav a.active {
+    background-color: rgba(255,255,255,0.2);
+}
+
+.btn-register {
+    background-color: #ffaa00;
+    color: #2c3e50;
+    font-weight: bold;
+}
+
+.btn-register:hover {
+    background-color: #ff9900;
+    transform: translateY(-2px);
+}
+
+/* RESPONSIVE - MÓVILES */
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: block;
+    }
+
+    .main-nav {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 80%;
+        max-width: 300px;
+        height: 100vh;
+        background: linear-gradient(180deg, #0066cc, #004999);
+        box-shadow: -2px 0 10px rgba(0,0,0,0.3);
+        transition: right 0.3s ease;
+        overflow-y: auto;
+        z-index: 999;
+    }
+
+    .main-nav.active {
+        right: 0;
+    }
+
+    .main-nav ul {
+        flex-direction: column;
+        gap: 0;
+        padding: 5rem 1rem 2rem 1rem;
+        width: 100%;
+    }
+
+    .main-nav li {
+        width: 100%;
+    }
+
+    .main-nav a {
+        width: 100%;
+        padding: 1rem;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+        border-radius: 0;
+    }
+
+    .main-nav a:hover {
+        background-color: rgba(255,255,255,0.15);
+    }
+
+    /* Overlay oscuro cuando el menú está abierto */
+    .nav-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.5);
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+        z-index: 998;
+    }
+
+    .nav-overlay.active {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .logo h1 {
+        font-size: 1.5rem;
+    }
+
+    .logo .tagline {
+        font-size: 0.75rem;
+    }
+}
+
+/* Tablets */
+@media (max-width: 992px) and (min-width: 769px) {
+    .main-nav ul {
+        gap: 0.3rem;
+    }
+
+    .main-nav a {
+        padding: 0.5rem 0.8rem;
+        font-size: 0.9rem;
+    }
+}
+</style>
+
+<!-- ESTRUCTURA HTML DEL HEADER -->
+<header class="main-header">
+    <div class="header-content">
+        <div class="logo">
+            <h1>La Doble B</h1>
+            <p class="tagline">Plásticos y Desechables</p>
         </div>
-    </header>
+
+        <!-- BOTÓN HAMBURGUESA (solo visible en móvil) -->
+        <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú">
+            ☰
+        </button>
+
+        <!-- NAVEGACIÓN -->
+        <nav class="main-nav" id="mainNav">
+            <ul>
+                <li><a href="index.html" id="nav-inicio">Inicio</a></li>
+                <li><a href="productos.html" id="nav-productos">Productos</a></li>
+                <li><a href="disenador.html" id="nav-disenador">Diseñador</a></li>
+                <li><a href="pedidos.html" id="nav-pedidos">Mis Pedidos</a></li>
+                <li><a href="login.html" id="nav-login">Iniciar Sesión</a></li>
+                <li><a href="registro.html" class="btn-register" id="nav-registro">Registrarse</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<!-- OVERLAY OSCURO (solo visible en móvil cuando el menú está abierto) -->
+<div class="nav-overlay" id="navOverlay"></div>
+
+<!-- JAVASCRIPT PARA EL MENÚ MÓVIL -->
+<script>
+// Funcionalidad del menú hamburguesa
+document.addEventListener('DOMContentLoaded', function() {
+    const menuToggle = document.getElementById('menuToggle');
+    const mainNav = document.getElementById('mainNav');
+    const navOverlay = document.getElementById('navOverlay');
+    
+    // Función para abrir/cerrar menú
+    function toggleMenu() {
+        mainNav.classList.toggle('active');
+        navOverlay.classList.toggle('active');
+        
+        // Cambiar ícono del botón
+        if (mainNav.classList.contains('active')) {
+            menuToggle.innerHTML = '✕';
+        } else {
+            menuToggle.innerHTML = '☰';
+        }
+        
+        // Prevenir scroll del body cuando el menú está abierto
+        if (mainNav.classList.contains('active')) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
+    }
+    
+    // Click en el botón hamburguesa
+    menuToggle.addEventListener('click', toggleMenu);
+    
+    // Click en el overlay para cerrar
+    navOverlay.addEventListener('click', toggleMenu);
+    
+    // Cerrar menú al hacer click en un enlace (en móvil)
+    const navLinks = mainNav.querySelectorAll('a');
+    navLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            if (window.innerWidth <= 768) {
+                toggleMenu();
+            }
+        });
+    });
+    
+    // Marcar página activa
+    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    
+    // Mapeo de páginas a IDs de navegación
+    const pageMap = {
+        'index.html': 'nav-inicio',
+        'productos.html': 'nav-productos',
+        'disenador.html': 'nav-disenador',
+        'pedidos.html': 'nav-pedidos',
+        'login.html': 'nav-login',
+        'registro.html': 'nav-registro'
+    };
+    
+    // Agregar clase active al enlace correspondiente
+    const activeNavId = pageMap[currentPage];
+    if (activeNavId) {
+        const activeLink = document.getElementById(activeNavId);
+        if (activeLink) {
+            activeLink.classList.add('active');
+        }
+    }
+});
+</script>
+
+
 
     <!-- CONTENIDO PRINCIPAL -->
     <main>
