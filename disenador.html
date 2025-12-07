@@ -4,10 +4,295 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Diseñador de Productos - Plásticos La Doble B</title>
-    <link rel="stylesheet" href="css/style.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #0066cc;
+            --primary-dark: #004999;
+            --secondary-color: #00aaff;
+            --accent-color: #ffaa00;
+            --bg-light: #f5f7fa;
+            --text-dark: #2c3e50;
+            --text-light: #6c757d;
+            --border-color: #dee2e6;
+            --success: #28a745;
+            --spacing-sm: 1rem;
+            --spacing-md: 2rem;
+            --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text-dark);
+            line-height: 1.6;
+            background-color: var(--bg-light);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-sm);
+        }
+
+        .main-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            color: white;
+            padding: var(--spacing-sm) 0;
+            box-shadow: var(--shadow-md);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo h1 {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .logo .tagline {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .main-nav ul {
+            display: flex;
+            list-style: none;
+            gap: var(--spacing-sm);
+            flex-wrap: wrap;
+        }
+
+        .main-nav a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: var(--transition);
+        }
+
+        .main-nav a:hover {
+            background-color: rgba(255,255,255,0.2);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin: var(--spacing-md) 0;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background-color: var(--accent-color);
+            margin: 1rem auto 0;
+        }
+
+        .designer-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-md);
+            margin: var(--spacing-md) 0;
+        }
+
+        .designer-form, .designer-preview {
+            background: white;
+            padding: var(--spacing-md);
+            border-radius: 10px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .form-group {
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid var(--border-color);
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(0,102,204,0.1);
+        }
+
+        .form-group small {
+            color: var(--text-light);
+            font-size: 0.85rem;
+            display: block;
+            margin-top: 0.25rem;
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 2rem;
+            margin-top: 0.5rem;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+        }
+
+        .radio-option input[type="radio"] {
+            width: auto;
+            cursor: pointer;
+        }
+
+        .radio-option label {
+            margin: 0;
+            cursor: pointer;
+            font-weight: normal;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            width: 100%;
+            margin-top: 0.5rem;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .btn-success {
+            background-color: var(--success);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background-color: #218838;
+        }
+
+        #productCanvas {
+            border: 2px solid var(--border-color);
+            border-radius: 5px;
+            max-width: 100%;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .info-box {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background: var(--bg-light);
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .info-box h4 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.3rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .info-item:last-child {
+            border-bottom: none;
+        }
+
+        .alert {
+            padding: 1rem;
+            border-radius: 5px;
+            margin: 1rem 0;
+            text-align: center;
+        }
+
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .note-box {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: #fff3cd;
+            border-radius: 5px;
+            border-left: 4px solid var(--accent-color);
+        }
+
+        .note-box p {
+            margin: 0;
+            color: #856404;
+            font-size: 0.9rem;
+        }
+
+        .microperforado-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background-color: #17a2b8;
+            color: white;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            margin-left: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .designer-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .radio-group {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+        }
+    </style>
 </head>
 <body>
-    <!-- ENCABEZADO Y NAVEGACIÓN -->
+    <!-- ENCABEZADO -->
     <header class="main-header">
         <div class="container">
             <div class="header-content">
@@ -19,10 +304,8 @@
                     <ul>
                         <li><a href="index.html">Inicio</a></li>
                         <li><a href="productos.html">Productos</a></li>
-                        <li><a href="disenador.html" class="active">Diseñador</a></li>
+                        <li><a href="disenador.html">Diseñador</a></li>
                         <li><a href="pedidos.html">Mis Pedidos</a></li>
-                        <li><a href="login.html">Iniciar Sesión</a></li>
-                        <li><a href="registro.html" class="btn-register">Registrarse</a></li>
                     </ul>
                 </nav>
             </div>
@@ -31,294 +314,299 @@
 
     <!-- CONTENIDO PRINCIPAL -->
     <main>
-        <section class="about-section">
-            <div class="container">
-                <h2 class="section-title">Diseñador de Productos Personalizados</h2>
-                <p style="text-align: center; max-width: 800px; margin: 0 auto 2rem; color: var(--text-light); font-size: 1.1rem;">
-                    Crea tu producto ideal con medidas personalizadas. Visualiza tu diseño en tiempo real.
-                </p>
-
-                <!-- SELECTOR DE TIPO DE PRODUCTO -->
-                <div style="text-align: center; margin-bottom: 2rem;">
-                    <label style="font-weight: 600; color: var(--primary-color); margin-right: 1rem; font-size: 1.1rem;">
-                        Tipo de Producto:
-                    </label>
-                    <select id="tipoProducto" 
-                            style="padding: 0.75rem 1.5rem; border: 2px solid var(--primary-color); border-radius: 5px; font-size: 1rem; cursor: pointer; font-weight: 600;">
-                        <option value="bolsa">Bolsa Plástica</option>
-                        <option value="capucho">Capuchón / Funda</option>
-                    </select>
-                </div>
-
-                <!-- CONTENEDOR DEL DISEÑADOR -->
-                <div class="designer-container">
-                    <!-- FORMULARIO DE DISEÑO -->
-                    <div class="designer-form">
-                        <h3 style="color: var(--primary-color); margin-bottom: 1.5rem;">
-                            Especificaciones del Producto
-                        </h3>
-
-                        <!-- FORMULARIO PARA BOLSA -->
-                        <div id="formBolsa">
-                            <div class="form-group">
-                                <label for="anchoBolsa">Ancho de la Bolsa (cm) *</label>
-                                <input type="number" id="anchoBolsa" min="5" max="200" value="30" step="1">
-                                <small style="color: var(--text-light);">Rango: 5 - 200 cm</small>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="largoBolsa">Largo de la Bolsa (cm) *</label>
-                                <input type="number" id="largoBolsa" min="5" max="300" value="40" step="1">
-                                <small style="color: var(--text-light);">Rango: 5 - 300 cm</small>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="espesorBolsa">Espesor (micras) *</label>
-                                <input type="number" id="espesorBolsa" min="10" max="200" value="50" step="5">
-                                <small style="color: var(--text-light);">Rango: 10 - 200 micras</small>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="colorBolsa">Color del Material</label>
-                                <select id="colorBolsa">
-                                    <option value="Transparente">Transparente</option>
-                                    <option value="Blanco">Blanco</option>
-                                    <option value="Negro">Negro</option>
-                                    <option value="Azul">Azul</option>
-                                    <option value="Rojo">Rojo</option>
-                                    <option value="Verde">Verde</option>
-                                    <option value="Personalizado">Personalizado</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <!-- FORMULARIO PARA CAPUCHÓN (OCULTO) -->
-                        <div id="formCapucho" class="hidden">
-                            <div class="form-group">
-                                <label for="anchoCapucho">Ancho del Capuchón (cm) *</label>
-                                <input type="number" id="anchoCapucho" min="5" max="150" value="25" step="1">
-                                <small style="color: var(--text-light);">Rango: 5 - 150 cm</small>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="altoCapucho">Alto del Capuchón (cm) *</label>
-                                <input type="number" id="altoCapucho" min="5" max="200" value="35" step="1">
-                                <small style="color: var(--text-light);">Rango: 5 - 200 cm</small>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="fuelleCapucho">Fuelle Lateral (cm)</label>
-                                <input type="number" id="fuelleCapucho" min="0" max="50" value="5" step="1">
-                                <small style="color: var(--text-light);">Rango: 0 - 50 cm (0 = sin fuelle)</small>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="espesorCapucho">Espesor (micras) *</label>
-                                <input type="number" id="espesorCapucho" min="10" max="200" value="50" step="5">
-                                <small style="color: var(--text-light);">Rango: 10 - 200 micras</small>
-                            </div>
-                        </div>
-
-                        <!-- BOTONES DE ACCIÓN -->
-                        <div style="margin-top: 2rem;">
-                            <button onclick="guardarDiseno()" class="btn btn-success" style="width: 100%; margin-bottom: 0.5rem;">
-                                💾 Guardar Diseño y Solicitar Cotización
-                            </button>
-                            <button onclick="resetearDiseno()" class="btn btn-secondary" style="width: 100%;">
-                                🔄 Resetear Diseño
-                            </button>
-                        </div>
-
-                        <!-- INFORMACIÓN ADICIONAL -->
-                        <div style="margin-top: 2rem; padding: 1rem; background: var(--bg-light); border-radius: 8px; border-left: 4px solid var(--primary-color);">
-                            <p style="color: var(--text-dark); margin-bottom: 0.5rem;">
-                                <strong>💡 Nota:</strong>
-                            </p>
-                            <p style="color: var(--text-light); font-size: 0.95rem;">
-                                Los precios varían según las especificaciones. Una vez guardes tu diseño, 
-                                nuestro equipo te contactará con una cotización detallada.
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- VISTA PREVIA -->
-                    <div class="designer-preview">
-                        <h3 style="color: var(--primary-color); margin-bottom: 1.5rem; text-align: center;">
-                            Vista Previa del Diseño
-                        </h3>
-                        
-                        <canvas id="productCanvas" width="500" height="500"></canvas>
-                        
-                        <div id="dimensionesInfo" style="margin-top: 1.5rem; padding: 1rem; background: var(--bg-light); border-radius: 8px;">
-                            <h4 style="color: var(--primary-color); margin-bottom: 0.5rem;">Especificaciones:</h4>
-                            <div id="infoContent" style="color: var(--text-dark);"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <!-- PIE DE PÁGINA -->
-    <footer class="main-footer">
         <div class="container">
-            <div class="footer-content">
-                <div class="footer-column">
-                    <h4>Plásticos y Desechables La Doble B S.A.S</h4>
-                    <p>Tu aliado en soluciones de empaque y plásticos industriales.</p>
+            <h2 class="section-title">Diseñador de Capuchones Personalizados</h2>
+            <p style="text-align: center; max-width: 800px; margin: 0 auto 2rem; color: var(--text-light); font-size: 1.1rem;">
+                Crea tu capuchón ideal especificando las medidas exactas. Visualiza tu diseño en tiempo real.
+            </p>
+
+            <div class="designer-container">
+                <!-- FORMULARIO -->
+                <div class="designer-form">
+                    <h3 style="color: var(--primary-color); margin-bottom: 1.5rem;">
+                        📏 Especificaciones del Capuchón
+                    </h3>
+
+                    <form id="capuchonForm">
+                        <div class="form-group">
+                            <label for="bocaSuperior">1. Boca Superior (cm) *</label>
+                            <input type="number" id="bocaSuperior" min="2" max="100" value="8" step="0.5" required>
+                            <small>Diámetro o ancho de la abertura superior</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="bocaInferior">2. Boca Inferior (cm) *</label>
+                            <input type="number" id="bocaInferior" min="2" max="150" value="30" step="0.5" required>
+                            <small>Diámetro o ancho de la abertura inferior</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="altoCapuchon">3. Ancho/Alto del Capuchón (cm) *</label>
+                            <input type="number" id="altoCapuchon" min="5" max="200" value="50" step="0.5" required>
+                            <small>Distancia desde boca superior a boca inferior</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="tipoDensidad">4. Tipo de Plástico *</label>
+                            <select id="tipoDensidad" required>
+                                <option value="alta">Alta Densidad (PEAD - Más resistente)</option>
+                                <option value="baja">Baja Densidad (PEBD - Más flexible)</option>
+                            </select>
+                            <small>Selecciona según tu necesidad de resistencia</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label>5. ¿Microperforado? *</label>
+                            <small>El microperforado permite ventilación y evita condensación</small>
+                            <div class="radio-group">
+                                <div class="radio-option">
+                                    <input type="radio" id="microSi" name="microperforado" value="si" checked>
+                                    <label for="microSi">Sí, con microperforado</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="microNo" name="microperforado" value="no">
+                                    <label for="microNo">No, sin microperforado</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="cantidadEstimada">Cantidad Estimada (unidades)</label>
+                            <input type="number" id="cantidadEstimada" min="100" value="1000" step="100">
+                            <small>Cantidad mínima sugerida: 1000 unidades</small>
+                        </div>
+
+                        <div class="note-box">
+                            <p><strong>💡 Nota:</strong> Los capuchones son ideales para proteger productos alargados, conos, ramos de flores, etc. El microperforado es recomendado para productos que necesitan respiración.</p>
+                        </div>
+
+                        <button type="button" onclick="guardarDiseno()" class="btn btn-success">
+                            💾 Guardar Diseño y Solicitar Cotización
+                        </button>
+
+                        <button type="button" onclick="resetearDiseno()" class="btn btn-primary">
+                            🔄 Resetear Diseño
+                        </button>
+                    </form>
                 </div>
-                <div class="footer-column">
-                    <h4>Enlaces Rápidos</h4>
-                    <ul>
-                        <li><a href="index.html">Inicio</a></li>
-                        <li><a href="productos.html">Productos</a></li>
-                        <li><a href="disenador.html">Diseñador</a></li>
-                        <li><a href="admin.html">Administración</a></li>
-                    </ul>
+
+                <!-- VISTA PREVIA -->
+                <div class="designer-preview">
+                    <h3 style="color: var(--primary-color); margin-bottom: 1.5rem; text-align: center;">
+                        👁️ Vista Previa del Capuchón
+                    </h3>
+                    
+                    <canvas id="productCanvas" width="500" height="600"></canvas>
+                    
+                    <div class="info-box">
+                        <h4>📋 Resumen de Especificaciones</h4>
+                        <div id="especificaciones">
+                            <!-- Se llenará dinámicamente -->
+                        </div>
+                    </div>
+
+                    <div id="alertContainer"></div>
                 </div>
-                <div class="footer-column">
-                    <h4>Contacto</h4>
-                    <p>📞 Teléfono: +57 300 123 4567</p>
-                    <p>📧 Email: ventas@ladobleb.com</p>
-                    <p>📍 La Ceja, Antioquia, Colombia</p>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 Plásticos y Desechables La Doble B S.A.S - Todos los derechos reservados</p>
             </div>
         </div>
-    </footer>
+    </main>
 
-    <!-- SCRIPTS -->
-    <script src="js/script.js"></script>
     <script>
-        const canvas = document.getElementById('productCanvas');
+        // Función para dibujar el capuchón cónico
+        function dibujarCapuchon(bocaSup, bocaInf, alto, densidad, microperforado) {
+            const canvas = document.getElementById('productCanvas');
+            const ctx = canvas.getContext('2d');
+            
+            // Limpiar canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Calcular escala
+            const maxWidth = Math.max(bocaSup, bocaInf);
+            const scale = Math.min((canvas.width - 100) / maxWidth, (canvas.height - 100) / alto);
+            
+            const bocaSupScaled = bocaSup * scale;
+            const bocaInfScaled = bocaInf * scale;
+            const altoScaled = alto * scale;
+            
+            // Centrar
+            const centerX = canvas.width / 2;
+            const startY = 50;
+            
+            // Color según densidad
+            const color = densidad === 'alta' ? '#b3d9ff' : '#e6f2ff';
+            const strokeColor = densidad === 'alta' ? '#0066cc' : '#00aaff';
+            
+            // Dibujar capuchón cónico
+            ctx.fillStyle = color;
+            ctx.strokeStyle = strokeColor;
+            ctx.lineWidth = 3;
+            
+            // Forma del cono
+            ctx.beginPath();
+            ctx.moveTo(centerX - bocaSupScaled/2, startY); // Arriba izquierda
+            ctx.lineTo(centerX - bocaInfScaled/2, startY + altoScaled); // Abajo izquierda
+            ctx.lineTo(centerX + bocaInfScaled/2, startY + altoScaled); // Abajo derecha
+            ctx.lineTo(centerX + bocaSupScaled/2, startY); // Arriba derecha
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+            
+            // Líneas de sello superior (boca superior)
+            ctx.fillStyle = strokeColor;
+            ctx.fillRect(centerX - bocaSupScaled/2, startY - 8, bocaSupScaled, 8);
+            
+            // Líneas de sello inferior (boca inferior)
+            ctx.fillRect(centerX - bocaInfScaled/2, startY + altoScaled, bocaInfScaled, 8);
+            
+            // Si es microperforado, dibujar puntos
+            if (microperforado === 'si') {
+                ctx.fillStyle = 'rgba(255,255,255,0.7)';
+                const numPuntos = 50;
+                for(let i = 0; i < numPuntos; i++) {
+                    const progress = Math.random();
+                    const y = startY + (altoScaled * progress);
+                    const widthAtY = bocaSupScaled + ((bocaInfScaled - bocaSupScaled) * progress);
+                    const x = centerX - widthAtY/2 + (Math.random() * widthAtY);
+                    
+                    ctx.beginPath();
+                    ctx.arc(x, y, 2, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+                
+                // Etiqueta de microperforado
+                ctx.fillStyle = '#17a2b8';
+                ctx.font = 'bold 14px Arial';
+                ctx.fillText('MICROPERFORADO', centerX + 120, startY + altoScaled/2);
+            }
+            
+            // Líneas de textura (efecto plástico)
+            ctx.strokeStyle = 'rgba(0,102,204,0.2)';
+            ctx.lineWidth = 1;
+            for(let i = 0; i < 10; i++) {
+                const y = startY + (altoScaled / 10) * i;
+                const widthAtY = bocaSupScaled + ((bocaInfScaled - bocaSupScaled) / 10) * i;
+                ctx.beginPath();
+                ctx.moveTo(centerX - widthAtY/2, y);
+                ctx.lineTo(centerX + widthAtY/2, y);
+                ctx.stroke();
+            }
+            
+            // Etiquetas de medidas
+            ctx.fillStyle = '#0066cc';
+            ctx.font = 'bold 14px Arial';
+            ctx.textAlign = 'center';
+            
+            // Boca superior
+            ctx.fillText(`↔ ${bocaSup} cm`, centerX, startY - 15);
+            
+            // Boca inferior
+            ctx.fillText(`↔ ${bocaInf} cm`, centerX, startY + altoScaled + 25);
+            
+            // Alto
+            ctx.save();
+            ctx.translate(25, startY + altoScaled/2);
+            ctx.rotate(-Math.PI / 2);
+            ctx.fillText(`↕ ${alto} cm`, 0, 0);
+            ctx.restore();
+            
+            // Tipo de densidad
+            ctx.font = '12px Arial';
+            ctx.fillText(`Tipo: ${densidad === 'alta' ? 'Alta Densidad (PEAD)' : 'Baja Densidad (PEBD)'}`, centerX, canvas.height - 10);
+        }
         
-        // Cambiar tipo de producto
-        document.getElementById('tipoProducto').addEventListener('change', function() {
-            const tipo = this.value;
-            document.getElementById('formBolsa').classList.toggle('hidden', tipo !== 'bolsa');
-            document.getElementById('formCapucho').classList.toggle('hidden', tipo !== 'capucho');
-            actualizarVista();
-        });
-
-        // Event listeners para actualizar vista en tiempo real
-        ['anchoBolsa', 'largoBolsa', 'espesorBolsa'].forEach(id => {
-            document.getElementById(id)?.addEventListener('input', actualizarVista);
-        });
-
-        ['anchoCapucho', 'altoCapucho', 'fuelleCapucho', 'espesorCapucho'].forEach(id => {
-            document.getElementById(id)?.addEventListener('input', actualizarVista);
-        });
-
-        // Función para actualizar la vista previa
+        // Función para actualizar vista previa
         function actualizarVista() {
-            const tipo = document.getElementById('tipoProducto').value;
+            const bocaSup = parseFloat(document.getElementById('bocaSuperior').value) || 8;
+            const bocaInf = parseFloat(document.getElementById('bocaInferior').value) || 30;
+            const alto = parseFloat(document.getElementById('altoCapuchon').value) || 50;
+            const densidad = document.getElementById('tipoDensidad').value;
+            const microperforado = document.querySelector('input[name="microperforado"]:checked').value;
+            const cantidad = parseInt(document.getElementById('cantidadEstimada').value) || 1000;
             
-            if (tipo === 'bolsa') {
-                const ancho = parseInt(document.getElementById('anchoBolsa').value) || 30;
-                const largo = parseInt(document.getElementById('largoBolsa').value) || 40;
-                const espesor = parseInt(document.getElementById('espesorBolsa').value) || 50;
-                const color = document.getElementById('colorBolsa').value;
-                
-                drawBag(canvas, ancho, largo, espesor);
-                
-                document.getElementById('infoContent').innerHTML = `
-                    <p><strong>Tipo:</strong> Bolsa Plástica</p>
-                    <p><strong>Ancho:</strong> ${ancho} cm</p>
-                    <p><strong>Largo:</strong> ${largo} cm</p>
-                    <p><strong>Espesor:</strong> ${espesor} micras</p>
-                    <p><strong>Color:</strong> ${color}</p>
-                    <p><strong>Área Total:</strong> ${(ancho * largo / 10000).toFixed(2)} m²</p>
-                `;
-            } else {
-                const ancho = parseInt(document.getElementById('anchoCapucho').value) || 25;
-                const alto = parseInt(document.getElementById('altoCapucho').value) || 35;
-                const fuelle = parseInt(document.getElementById('fuelleCapucho').value) || 5;
-                const espesor = parseInt(document.getElementById('espesorCapucho').value) || 50;
-                
-                drawCapucho(canvas, ancho, alto, fuelle);
-                
-                document.getElementById('infoContent').innerHTML = `
-                    <p><strong>Tipo:</strong> Capuchón / Funda</p>
-                    <p><strong>Ancho:</strong> ${ancho} cm</p>
-                    <p><strong>Alto:</strong> ${alto} cm</p>
-                    <p><strong>Fuelle:</strong> ${fuelle} cm ${fuelle > 0 ? '(expandible)' : '(sin fuelle)'}</p>
-                    <p><strong>Espesor:</strong> ${espesor} micras</p>
-                `;
-            }
+            // Dibujar
+            dibujarCapuchon(bocaSup, bocaInf, alto, densidad, microperforado);
+            
+            // Actualizar especificaciones
+            const especDiv = document.getElementById('especificaciones');
+            especDiv.innerHTML = `
+                <div class="info-item">
+                    <span><strong>Boca Superior:</strong></span>
+                    <span>${bocaSup} cm</span>
+                </div>
+                <div class="info-item">
+                    <span><strong>Boca Inferior:</strong></span>
+                    <span>${bocaInf} cm</span>
+                </div>
+                <div class="info-item">
+                    <span><strong>Alto Total:</strong></span>
+                    <span>${alto} cm</span>
+                </div>
+                <div class="info-item">
+                    <span><strong>Tipo de Plástico:</strong></span>
+                    <span>${densidad === 'alta' ? 'Alta Densidad' : 'Baja Densidad'}</span>
+                </div>
+                <div class="info-item">
+                    <span><strong>Microperforado:</strong></span>
+                    <span>${microperforado === 'si' ? '✅ Sí' : '❌ No'}</span>
+                </div>
+                <div class="info-item">
+                    <span><strong>Cantidad:</strong></span>
+                    <span>${cantidad.toLocaleString()} unidades</span>
+                </div>
+            `;
         }
-
-        // Guardar diseño
+        
+        // Función para guardar diseño
         function guardarDiseno() {
-            const user = getCurrentUser();
-            if (!user) {
-                if (confirm('Debes iniciar sesión para guardar diseños. ¿Deseas ir al login?')) {
-                    window.location.href = 'login.html';
-                }
-                return;
-            }
-
-            const tipo = document.getElementById('tipoProducto').value;
-            let descripcion = '';
+            const bocaSup = document.getElementById('bocaSuperior').value;
+            const bocaInf = document.getElementById('bocaInferior').value;
+            const alto = document.getElementById('altoCapuchon').value;
+            const densidad = document.getElementById('tipoDensidad').value;
+            const microperforado = document.querySelector('input[name="microperforado"]:checked').value;
+            const cantidad = document.getElementById('cantidadEstimada').value;
             
-            if (tipo === 'bolsa') {
-                const ancho = document.getElementById('anchoBolsa').value;
-                const largo = document.getElementById('largoBolsa').value;
-                const espesor = document.getElementById('espesorBolsa').value;
-                const color = document.getElementById('colorBolsa').value;
-                descripcion = `Bolsa Personalizada ${ancho}x${largo}cm, ${espesor} micras, Color: ${color}`;
-            } else {
-                const ancho = document.getElementById('anchoCapucho').value;
-                const alto = document.getElementById('altoCapucho').value;
-                const fuelle = document.getElementById('fuelleCapucho').value;
-                const espesor = document.getElementById('espesorCapucho').value;
-                descripcion = `Capuchón Personalizado ${ancho}x${alto}cm, Fuelle: ${fuelle}cm, ${espesor} micras`;
-            }
+            const microTexto = microperforado === 'si' ? 'Con Microperforado' : 'Sin Microperforado';
+            const descripcion = `Capuchón Personalizado: Boca Sup ${bocaSup}cm, Boca Inf ${bocaInf}cm, Alto ${alto}cm, ${densidad === 'alta' ? 'Alta Densidad' : 'Baja Densidad'}, ${microTexto}`;
             
-            // Crear pedido con el diseño
-            const nuevoPedido = {
-                id: generateId(),
-                userEmail: user.email,
-                userName: user.nombre,
-                userEmpresa: user.empresa,
-                producto: descripcion,
-                cantidad: 0, // Se definirá después
-                medida: 'Personalizado',
-                comentarios: 'Producto diseñado con el diseñador online. Solicito cotización.',
-                estado: 'Pendiente',
-                fecha: new Date().toISOString()
-            };
+            const alertDiv = document.getElementById('alertContainer');
+            alertDiv.innerHTML = `
+                <div class="alert alert-success">
+                    <strong>✅ ¡Diseño Guardado!</strong><br>
+                    Tu capuchón personalizado ha sido guardado.<br>
+                    <strong>Descripción:</strong> ${descripcion}<br>
+                    <strong>Cantidad:</strong> ${cantidad} unidades<br><br>
+                    <em>Pronto nos contactaremos contigo con la cotización.</em>
+                </div>
+            `;
             
-            saveOrder(nuevoPedido);
-            
-            showAlert('¡Diseño guardado exitosamente! Tu solicitud ha sido enviada. Te contactaremos pronto.', 'success');
-            
-            setTimeout(() => {
-                window.location.href = 'pedidos.html';
-            }, 2000);
+            // Scroll al alert
+            alertDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
-
-        // Resetear diseño
+        
+        // Función para resetear
         function resetearDiseno() {
-            if (confirm('¿Estás seguro de resetear el diseño?')) {
-                const tipo = document.getElementById('tipoProducto').value;
-                if (tipo === 'bolsa') {
-                    document.getElementById('anchoBolsa').value = 30;
-                    document.getElementById('largoBolsa').value = 40;
-                    document.getElementById('espesorBolsa').value = 50;
-                    document.getElementById('colorBolsa').value = 'Transparente';
-                } else {
-                    document.getElementById('anchoCapucho').value = 25;
-                    document.getElementById('altoCapucho').value = 35;
-                    document.getElementById('fuelleCapucho').value = 5;
-                    document.getElementById('espesorCapucho').value = 50;
-                }
+            if(confirm('¿Deseas resetear todos los valores?')) {
+                document.getElementById('bocaSuperior').value = 8;
+                document.getElementById('bocaInferior').value = 30;
+                document.getElementById('altoCapuchon').value = 50;
+                document.getElementById('tipoDensidad').value = 'alta';
+                document.getElementById('microSi').checked = true;
+                document.getElementById('cantidadEstimada').value = 1000;
+                document.getElementById('alertContainer').innerHTML = '';
                 actualizarVista();
             }
         }
-
-        // Inicializar vista
+        
+        // Event listeners
+        document.getElementById('bocaSuperior').addEventListener('input', actualizarVista);
+        document.getElementById('bocaInferior').addEventListener('input', actualizarVista);
+        document.getElementById('altoCapuchon').addEventListener('input', actualizarVista);
+        document.getElementById('tipoDensidad').addEventListener('change', actualizarVista);
+        document.getElementById('microSi').addEventListener('change', actualizarVista);
+        document.getElementById('microNo').addEventListener('change', actualizarVista);
+        document.getElementById('cantidadEstimada').addEventListener('input', actualizarVista);
+        
+        // Inicializar
         window.addEventListener('DOMContentLoaded', actualizarVista);
     </script>
 </body>
